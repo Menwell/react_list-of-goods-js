@@ -20,7 +20,7 @@ const SORT_BY_LENGTH = 'Sort by length';
 const REVERSE = 'Reverse';
 const RESET = 'Reset';
 
-const convertingGoods = (goods, nameOperation, modifire) => {
+const convertGoods = (goods, nameOperation, modifire) => {
   const preparedGoods = [...goods];
 
   if (nameOperation) {
@@ -48,11 +48,7 @@ const convertingGoods = (goods, nameOperation, modifire) => {
 export const App = () => {
   const [nameOperation, setNameOperation] = useState('');
   const [isModifire, setIsModifire] = useState(false);
-  const visibleGoods = convertingGoods(
-    goodsFromServer,
-    nameOperation,
-    isModifire,
-  );
+  const visibleGoods = convertGoods(goodsFromServer, nameOperation, isModifire);
 
   return (
     <div className="section content">
@@ -117,7 +113,9 @@ export const App = () => {
       </div>
       <ul>
         {visibleGoods.map(good => (
-          <li data-cy="Good">{good}</li>
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
         ))}
       </ul>
     </div>
